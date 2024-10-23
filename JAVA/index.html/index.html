@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Velha</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #0241ee;
+            margin: 0;
+        }
+        .borda {
+            border: 10px solid #ff5005fa;
+            padding: 20px;
+            border-radius: 50px;
+            height: 550px;
+        }
+        .bordinha {
+            border: 10px solid #FF4500;
+            padding: 25px;
+            border-radius: 40px;
+        }
+        .campos {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 10px;
+            margin-bottom: 0px;
+        }
+        h1 {
+            color: beige;
+            font-size: 40px; 
+            text-align: center;
+            margin: 5px;
+        }
+        .divCaixa {
+            width: 100px;
+            height: 100px;
+            border: 7px solid #41ee02;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        .resetar {
+            margin-top: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="borda">
+        <h1>Jogo da Velha</h1>
+        <div class="bordinha">
+            <div class="campos">
+                <div id="campo1" class="divCaixa" onclick="marcarCampo(this)"></div>
+                <div id="campo2" class="divCaixa" onclick="marcarCampo(this)"></div>
+                <div id="campo3" class="divCaixa" onclick="marcarCampo(this)"></div>
+                <div id="campo4" class="divCaixa" onclick="marcarCampo(this)"></div>
+                <div id="campo5" class="divCaixa" onclick="marcarCampo(this)"></div>
+                <div id="campo6" class="divCaixa" onclick="marcarCampo(this)"></div>
+                <div id="campo7" class="divCaixa" onclick="marcarCampo(this)"></div>
+                <div id="campo8" class="divCaixa" onclick="marcarCampo(this)"></div>
+                <div id="campo9" class="divCaixa" onclick="marcarCampo(this)"></div>
+            </div>
+        </div>
+        <div class="resetar">
+            <button onclick="reset()">resetar</button>
+        </div>
+    </div>
+
+    <script>
+        var jogador = "x";
+
+        function marcarCampo(campos) {
+            if (campos.innerHTML == "") {   
+                campos.innerHTML = jogador;
+                if (ganhador()) {
+                    alert(jogador + " ganhou!");
+                    return;
+                }
+                if (empate()) {
+                    alert("Sinto muito, você é ruim!");
+                    return;
+                }
+                jogador = (jogador === "x") ? "o" : "x"; 
+            }
+        }
+
+        function ganhador() {
+            var campo1 = document.getElementById("campo1").innerHTML;
+            var campo2 = document.getElementById("campo2").innerHTML;     
+            var campo3 = document.getElementById("campo3").innerHTML;     
+            var campo4 = document.getElementById("campo4").innerHTML;          
+            var campo5 = document.getElementById("campo5").innerHTML;     
+            var campo6 = document.getElementById("campo6").innerHTML;     
+            var campo7 = document.getElementById("campo7").innerHTML;     
+            var campo8 = document.getElementById("campo8").innerHTML;     
+            var campo9 = document.getElementById("campo9").innerHTML;    
+
+            if ((campo1 && campo1 === campo2 && campo1 === campo3) || 
+                (campo4 && campo4 === campo5 && campo4 === campo6) ||
+                (campo7 && campo7 === campo8 && campo7 === campo9) || 
+                (campo1 && campo1 === campo4 && campo1 === campo7) ||
+                (campo2 && campo2 === campo5 && campo2 === campo8) ||
+                (campo3 && campo3 === campo6 && campo3 === campo9) ||
+                (campo1 && campo1 === campo5 && campo1 === campo9) ||
+                (campo3 && campo3 === campo5 && campo3 === campo7)) {
+                return true;
+            }
+            return false;
+        }
+
+        function empate() {
+            var campo1 = document.getElementById("campo1").innerHTML;
+            var campo2 = document.getElementById("campo2").innerHTML;     
+            var campo3 = document.getElementById("campo3").innerHTML;     
+            var campo4 = document.getElementById("campo4").innerHTML;          
+            var campo5 = document.getElementById("campo5").innerHTML;     
+            var campo6 = document.getElementById("campo6").innerHTML;     
+            var campo7 = document.getElementById("campo7").innerHTML;     
+            var campo8 = document.getElementById("campo8").innerHTML;     
+            var campo9 = document.getElementById("campo9").innerHTML; 
+        
+            if (campo1 && campo2 && campo3 && campo4 && campo5 && campo6 && campo7 && campo8 && campo9) {
+                return true; 
+            }
+            return false;
+        }
+
+        function reset() {
+            for (var i = 1; i <= 9; i++) {
+                document.getElementById("campo" + i).innerHTML = "";
+            }
+            jogador = "x"; 
+        }
+    </script>
+</body>
+</html>
